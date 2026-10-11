@@ -1,0 +1,18 @@
+reason,action,record_count,percent_of_input,description
+missing_critical,excluded,0,0.0,"Missing time, zone, distance or money value"
+duplicate,excluded,2,0.0,"Same vendor, times, zones, distance and fare as an earlier row"
+dropoff_not_after_pickup,excluded,6294,0.082,Dropoff time is not after pickup time
+outside_month,excluded,534,0.007,Pickup is outside the month the file belongs to
+duration_too_short,excluded,67755,0.884,Trip shorter than 1 minute
+duration_too_long,excluded,20842,0.272,Trip longer than 180 minutes
+distance_not_positive,excluded,11406,0.149,Trip distance is zero or negative
+distance_too_long,excluded,23,0.0,Trip distance above 100 miles
+fare_out_of_range,excluded,4997,0.065,"Fare is zero, negative or above 500 dollars"
+total_out_of_range,excluded,1,0.0,"Total is zero, negative or above 1000 dollars"
+negative_extras,excluded,0,0.0,Negative tip or toll amount
+unknown_zone,excluded,0,0.0,Zone id is not in taxi_zone_lookup.csv
+passenger_count_invalid,excluded,14,0.0,Negative or more than 6 passengers
+speed_impossible,excluded,441,0.006,Average speed above 80 mph
+passenger_count_imputed,imputed,114756,1.497,Missing or zero passenger count set to 1
+rate_code_imputed,imputed,0,0.0,Missing rate code set to 99 (unknown)
+payment_type_imputed,imputed,0,0.0,Missing payment type set to 5 (unknown)
