@@ -10,9 +10,18 @@ distance_too_long,excluded,23,0.0,Trip distance above 100 miles
 fare_out_of_range,excluded,4997,0.065,"Fare is zero, negative or above 500 dollars"
 total_out_of_range,excluded,1,0.0,"Total is zero, negative or above 1000 dollars"
 negative_extras,excluded,0,0.0,Negative tip or toll amount
+tip_out_of_range,excluded,1,0.0,Tip above 500 dollars
+total_below_fare,excluded,0,0.0,Total amount is lower than the metered fare
 unknown_zone,excluded,0,0.0,Zone id is not in taxi_zone_lookup.csv
 passenger_count_invalid,excluded,14,0.0,Negative or more than 6 passengers
 speed_impossible,excluded,441,0.006,Average speed above 80 mph
 passenger_count_imputed,imputed,114756,1.497,Missing or zero passenger count set to 1
-rate_code_imputed,imputed,0,0.0,Missing rate code set to 99 (unknown)
-payment_type_imputed,imputed,0,0.0,Missing payment type set to 5 (unknown)
+vendor_imputed,imputed,0,0.0,Missing or unknown vendor id set to 0 (unknown)
+rate_code_imputed,imputed,0,0.0,Missing or unknown rate code set to 99 (unknown)
+payment_type_imputed,imputed,0,0.0,Missing or unknown payment type set to 5 (unknown)
+store_flag_cleared,imputed,0,0.0,Store and forward flag other than Y or N set to empty
+extra_filled,imputed,0,0.0,Missing extra set to 0 (fee not charged or not recorded)
+mta_tax_filled,imputed,0,0.0,Missing mta_tax set to 0 (fee not charged or not recorded)
+improvement_surcharge_filled,imputed,0,0.0,Missing improvement_surcharge set to 0 (fee not charged or not recorded)
+congestion_surcharge_filled,imputed,4783980,62.391,Missing congestion_surcharge set to 0 (fee not charged or not recorded)
+airport_fee_filled,imputed,7555482,98.535,Missing airport_fee set to 0 (fee not charged or not recorded)

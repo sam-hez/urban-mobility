@@ -38,21 +38,22 @@ Run them from the project folder, in this order.
 | `python pipeline/inspect_data.py` | prints the trip file columns, the lookup table, the shapefile details and the join key check |
 | `python pipeline/load_data.py` | loads all three datasets and joins zone details to every trip |
 | `python pipeline/explore_quality.py` | counts missing values, duplicates and invalid records, writes `logs/quality_report.txt` |
-| `python pipeline/clean_data.py` | removes bad rows in chunks of 500000 rows (low memory), writes the cleaned file and the exclusion logs |
+| `python pipeline/clean_data.py` | removes bad rows in chunks of 500000 rows (low memory), fixes and normalizes values, writes the cleaned file, the reference tables and the logs |
+| `python pipeline/validate_clean.py` | checks the cleaned file against every rule and writes `logs/validation_report.txt` |
 
 All scripts accept `--file path/to/file` and `--max-rows 500000`. For `load_data.py` and `explore_quality.py` it is a random sample. For `clean_data.py` it means the first N rows of the file. `clean_data.py` also accepts `--chunk-size` (default 500000) if you want it to use even less memory.
 
 ## Output
 
 - `data/processed/trips_clean.parquet`: cleaned and enriched trips (columns in `pipeline/FIELDS.md`)
-- `logs/quality_report.txt`: problems found before cleaning
+- `data/processed/zones.csv`, `vendors.csv`, `rate_codes.csv`, `payment_types.csv`: reference tables for the database
+- `logs/cleaning_report.txt`: rows before and after, removals by rule, fixes, and key numbers before and after
+- `logs/before_after_summary.csv`: the same key numbers as a table
 - `logs/exclusion_summary.csv`: how many rows each rule removed or fixed
 - `logs/excluded_records.csv`: up to 500 example rows for every rule
+- `logs/quality_report.txt`: problems found before cleaning
+- `logs/validation_report.txt`: result of the final check
 
 ## Cleaning rules
 
-Rows are removed when they have: a missing important value, a duplicate, dropoff not after pickup, pickup outside the month of the file, duration under 1 or over 180 minutes, distance of 0 or over 100 miles, fare of 0 or over 500 dollars, total of 0 or over 1000 dollars, a negative tip or toll, a zone id that is not in the lookup, more than 6 passengers, or a speed above 80 mph.
-
-Rows are kept but fixed when passenger count is missing or 0 (set to 1), or when rate code or payment type is missing (set to the unknown code).
-
-The limits are at the top of `pipeline/rules.py` if the team wants to change them.
+The full list with limits and reasons is in `pipeline/CLEANING_RULES.md`. The limits are at the top of `pipeline/rules.py`.

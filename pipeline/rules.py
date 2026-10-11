@@ -6,6 +6,7 @@ MAX_DURATION = 180
 MAX_DISTANCE = 100
 MAX_FARE = 500
 MAX_TOTAL = 1000
+MAX_TIP = 500
 MAX_PASSENGERS = 6
 MAX_SPEED = 80
 
@@ -99,6 +100,14 @@ def negative_extras(df, context):
     return (df["tip_amount"] < 0) | (df["tolls_amount"] < 0)
 
 
+def tip_out_of_range(df, context):
+    return df["tip_amount"] > MAX_TIP
+
+
+def total_below_fare(df, context):
+    return df["total_amount"] < df["fare_amount"]
+
+
 def unknown_zone(df, context):
     zone_ids = context["zone_ids"]
     return ~(df["pickup_location_id"].isin(zone_ids) & df["dropoff_location_id"].isin(zone_ids))
@@ -125,6 +134,8 @@ RULES = [
     ("fare_out_of_range", "Fare is zero, negative or above {} dollars".format(MAX_FARE), fare_out_of_range),
     ("total_out_of_range", "Total is zero, negative or above {} dollars".format(MAX_TOTAL), total_out_of_range),
     ("negative_extras", "Negative tip or toll amount", negative_extras),
+    ("tip_out_of_range", "Tip above {} dollars".format(MAX_TIP), tip_out_of_range),
+    ("total_below_fare", "Total amount is lower than the metered fare", total_below_fare),
     ("unknown_zone", "Zone id is not in taxi_zone_lookup.csv", unknown_zone),
     ("passenger_count_invalid", "Negative or more than {} passengers".format(MAX_PASSENGERS), passenger_count_invalid),
     ("speed_impossible", "Average speed above {} mph".format(MAX_SPEED), speed_impossible),
