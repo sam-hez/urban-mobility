@@ -1,0 +1,6 @@
+Validation of trips_clean.parquet
+Rows checked: 7555482
+Columns: 30
+Months in pickup times: ['2019-01']
+
+PASSED: every check found 0 problems

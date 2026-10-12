@@ -1,0 +1,45 @@
+Data quality report
+File: yellow_tripdata_2019-01.csv
+Rows: 7667792
+Main month in file: 2019-01
+
+Missing values per column
+  congestion_surcharge          4855978   63.33%
+  airport_fee                   7667792  100.00%
+  pickup_lat                     163670    2.13%
+  pickup_lon                     163670    2.13%
+  dropoff_lat                    166160    2.17%
+  dropoff_lon                    166160    2.17%
+
+Duplicates
+  Fully identical rows:          0
+  Same key columns as earlier:   2
+
+Rows flagged by each rule (a row can be flagged by more than one)
+  missing_critical                    0    0.00%  Missing time, zone, distance or money value
+  duplicate                           2    0.00%  Same vendor, times, zones, distance and fare as an earlier row
+  dropoff_not_after_pickup         6294    0.08%  Dropoff time is not after pickup time
+  outside_month                     537    0.01%  Pickup is outside the month the file belongs to
+  duration_too_short              74069    0.97%  Trip shorter than 1 minute
+  duration_too_long               20913    0.27%  Trip longer than 180 minutes
+  distance_not_positive           54770    0.71%  Trip distance is zero or negative
+  distance_too_long                  32    0.00%  Trip distance above 100 miles
+  fare_out_of_range                9591    0.13%  Fare is zero, negative or above 500 dollars
+  total_out_of_range               8568    0.11%  Total is zero, negative or above 1000 dollars
+  negative_extras                   215    0.00%  Negative tip or toll amount
+  unknown_zone                        0    0.00%  Zone id is not in taxi_zone_lookup.csv
+  passenger_count_invalid            57    0.00%  Negative or more than 6 passengers
+  speed_impossible                 6135    0.08%  Average speed above 80 mph
+  passenger_count_zero_or_missing     117381    1.53%  Not removed, set to 1 later
+
+Summary of key numbers
+       trip_distance  fare_amount  total_amount  duration_min  passenger_count
+count     7667792.00   7667792.00    7667792.00    7667792.00       7667792.00
+mean            2.80        12.41         15.68         16.48             1.57
+std             3.74       262.07        262.29         81.82             1.22
+min             0.00      -362.00       -362.80     -84280.50             0.00
+25%             0.90         6.00          8.19          6.10             1.00
+50%             1.53         8.50         11.27         10.15             1.00
+75%             2.80        13.50         16.56         16.57             2.00
+max           831.80    623259.86     623261.66      43648.02             9.00
+

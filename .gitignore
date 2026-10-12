@@ -1,0 +1,8 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+data/raw/*.parquet
+data/processed/*.parquet
+.DS_Store
+data/raw/yellow_tripdata*.csv

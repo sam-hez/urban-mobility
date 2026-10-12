@@ -1,0 +1,46 @@
+Cleaning report
+File: yellow_tripdata_2019-01.csv
+Main month: 2019-01
+
+Rows before cleaning: 7667792
+Rows removed:         112310 (1.46%)
+Rows after cleaning:  7555482
+
+Rows removed by rule (each row is counted under the first rule it fails)
+  missing_critical                    0   0.000%  Missing time, zone, distance or money value
+  duplicate                           2   0.000%  Same vendor, times, zones, distance and fare as an earlier row
+  dropoff_not_after_pickup         6294   0.082%  Dropoff time is not after pickup time
+  outside_month                     534   0.007%  Pickup is outside the month the file belongs to
+  duration_too_short              67755   0.884%  Trip shorter than 1 minute
+  duration_too_long               20842   0.272%  Trip longer than 180 minutes
+  distance_not_positive           11406   0.149%  Trip distance is zero or negative
+  distance_too_long                  23   0.000%  Trip distance above 100 miles
+  fare_out_of_range                4997   0.065%  Fare is zero, negative or above 500 dollars
+  total_out_of_range                  1   0.000%  Total is zero, negative or above 1000 dollars
+  negative_extras                     0   0.000%  Negative tip or toll amount
+  tip_out_of_range                    1   0.000%  Tip above 500 dollars
+  total_below_fare                    0   0.000%  Total amount is lower than the metered fare
+  unknown_zone                        0   0.000%  Zone id is not in taxi_zone_lookup.csv
+  passenger_count_invalid            14   0.000%  Negative or more than 6 passengers
+  speed_impossible                  441   0.006%  Average speed above 80 mph
+
+Values fixed in rows that were kept
+  passenger_count_imputed        114756   1.497%  Missing or zero passenger count set to 1
+  vendor_imputed                      0   0.000%  Missing or unknown vendor id set to 0 (unknown)
+  rate_code_imputed                   0   0.000%  Missing or unknown rate code set to 99 (unknown)
+  payment_type_imputed                0   0.000%  Missing or unknown payment type set to 5 (unknown)
+  store_flag_cleared                  0   0.000%  Store and forward flag other than Y or N set to empty
+  extra_filled                        0   0.000%  Missing extra set to 0 (fee not charged or not recorded)
+  mta_tax_filled                      0   0.000%  Missing mta_tax set to 0 (fee not charged or not recorded)
+  improvement_surcharge_filled          0   0.000%  Missing improvement_surcharge set to 0 (fee not charged or not recorded)
+  congestion_surcharge_filled    4783980  62.391%  Missing congestion_surcharge set to 0 (fee not charged or not recorded)
+  airport_fee_filled            7555482  98.535%  Missing airport_fee set to 0 (fee not charged or not recorded)
+
+Key numbers before and after cleaning
+         column  count_before  count_after  mean_before  mean_after  min_before  min_after    max_before  max_after
+  trip_distance       7667792      7555482        2.801       2.824         0.0       0.01    831.800000      98.38
+    fare_amount       7667792      7555482       12.409      12.156      -362.0       0.01 623259.860000     500.00
+     tip_amount       7667792      7555482        1.827       1.820       -63.5       0.00    787.250000     444.80
+   total_amount       7667792      7555482       15.682      15.420      -362.8       0.31 623261.660000     791.56
+   duration_min       7667792      7555482       16.481      12.953    -84280.5       1.00  43648.016667     180.00
+passenger_count       7667792      7555482        1.567       1.583         0.0       1.00      9.000000       6.00
