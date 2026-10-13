@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS zones (
     zone_name VARCHAR(100) NOT NULL,
     borough_id TINYINT UNSIGNED NOT NULL,
     service_zone_id TINYINT UNSIGNED NOT NULL,
-    polygon_parts TINYINT UNSIGNED NOT NULL,
-    centroid_lat DECIMAL(9,6) NOT NULL,
-    centroid_lon DECIMAL(9,6) NOT NULL,
+    polygon_parts TINYINT UNSIGNED NULL,
+    centroid_lat DECIMAL(9,6) NULL,
+    centroid_lon DECIMAL(9,6) NULL,
     PRIMARY KEY (location_id),
     CONSTRAINT fk_zones_borough
         FOREIGN KEY (borough_id) REFERENCES boroughs (borough_id),
