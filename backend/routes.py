@@ -15,7 +15,6 @@ SORT_COLUMNS = {
 ZONE_COLUMNS = {"pickup": "t.pickup_location_id", "dropoff": "t.dropoff_location_id"}
 
 TRIP_JOINS = """
-    FROM trips t
     JOIN zones pz        ON pz.location_id = t.pickup_location_id
     JOIN boroughs pb     ON pb.borough_id = pz.borough_id
     JOIN zones dz        ON dz.location_id = t.dropoff_location_id
@@ -80,6 +79,8 @@ def trips():
     where = make_where(conditions)
     total = query_all(f"SELECT COUNT(*) AS total FROM trips t {where}", params, use_cache=True)[0]["total"]
 
+    order_by = f"{SORT_COLUMNS[sort_by]} {order}, t.trip_id {order}"
+
     sql = f"""
         SELECT t.trip_id, t.pickup_datetime, t.dropoff_datetime,
                t.pickup_location_id, pz.zone_name AS pickup_zone, pb.borough_name AS pickup_borough,
@@ -87,10 +88,11 @@ def trips():
                t.passenger_count, t.trip_distance, t.duration_min,
                t.fare_amount, t.tip_amount, t.tolls_amount, t.total_amount,
                p.description AS payment_type
+        FROM (SELECT t.trip_id FROM trips t {where}
+              ORDER BY {order_by} LIMIT :limit OFFSET :offset) page
+        JOIN trips t ON t.trip_id = page.trip_id
         {TRIP_JOINS}
-        {where}
-        ORDER BY {SORT_COLUMNS[sort_by]} {order}, t.trip_id {order}
-        LIMIT :limit OFFSET :offset
+        ORDER BY {order_by}
     """
     rows = query_all(sql, {**params, "limit": per_page, "offset": (page - 1) * per_page})
     return jsonify({
@@ -110,6 +112,7 @@ def trip_detail(trip_id):
         SELECT t.*, pz.zone_name AS pickup_zone, pb.borough_name AS pickup_borough,
                dz.zone_name AS dropoff_zone, db.borough_name AS dropoff_borough,
                p.description AS payment_type
+        FROM trips t
         {TRIP_JOINS}
         WHERE t.trip_id = :trip_id
     """

@@ -133,6 +133,11 @@ def load_trips(engine, limit=None):
     finally:
         connection.close()
 
+def analyze_tables(engine):
+    """Refresh MySQL's statistics so it picks the best index for every query."""
+    with engine.connect() as conn:
+        for table in TABLES:
+            conn.execute(text(f"ANALYZE TABLE {table}")).fetchall()
 
 def print_counts(engine):
     print("Row counts:")
@@ -154,14 +159,16 @@ def main():
     engine = get_engine()
     begin = time.time()
 
-    print("1/4 Creating tables...")
+    print("1/5 Creating tables...")
     create_tables(engine)
-    print("2/4 Loading lookup tables...")
+    print("2/5 Loading lookup tables...")
     load_lookup_tables(engine)
-    print("3/4 Loading trips...")
+    print("3/5 Loading trips...")
     load_trips(engine, args.limit)
-    print("4/4 Creating indexes...")
+    print("4/5 Creating indexes...")
     run_sql_file(engine, INDEX_FILE)
+    print("5/5 Updating table statistics...")
+    analyze_tables(engine)
 
     print_counts(engine)
     print(f"Done in {time.time() - begin:.0f} seconds.")
