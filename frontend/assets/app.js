@@ -93,6 +93,68 @@ resetFiltersButton.addEventListener(
 
 );
 
+//DETAIL DRAWER
+const detailDrawer = document.getElementById("detailDrawer");
+const drawerBackdrop = document.getElementById("drawerBackdrop");
+const drawerClose = document.getElementById("drawerClose");
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeDrawer();
+            closeMobileSidebar();
+        }
+    }
+);
+
+const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+function openMobileSidebar() {
+
+    sidebar.classList.add (
+        "open"
+    );
+
+    sidebarBackdrop.classList.add(
+        "open"
+    );
+}
+
+function closeMobileSidebar (){
+    sidebar.classList.remove(
+        "open"
+    );
+
+    sidebarBackdrop.classList.remove("open");
+}
+
+menuButton.addEventListener(
+    "click",
+    function () {
+
+        const isOpen = sidebar.classList.contains(
+            "open"
+        );
+
+        if (isOpen) {
+            closeMobileSidebar();
+        }else{
+
+            openMobileSidebar();
+        }
+    }
+);
+
+sidebarBackdrop.addEventListener(
+    "click",
+    closeMobileSidebar
+);
+
+
 
 // SIDEBAR NAVIGATION
 const navigationItems = document.querySelectorAll(".nav-item");

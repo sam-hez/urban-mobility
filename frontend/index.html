@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Urban Mobility Data Explorer for analysing New York City taxi trip patterns">
+    
 
     <title>Urban Mobility Data Explorer</title>
 
     <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" type="image/png" href="assets/images/fav.png">
 </head>
 
 <body>
@@ -49,8 +51,8 @@
 
                 <button class="utility-item" data-drawer="about" title="About"><span class="utility-icon">?</span><span>About</span></button>
 
-                <a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page" target="_blank"><span class="utility-icon">⌖</span><span>NYC TLC</span></a>
-                <a href="https://github.com/sam-hez/urban-mobility/" target="_blank"><span class="utility-icon">⌘</span><span>GitHub</span></a>
+                <a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page" class="utility-item" target="_blank"><span class="utility-icon">⌖</span><span>NYC TLC</span></a>
+                <a href="https://github.com/sam-hez/urban-mobility/" target="_blank" class="utility-item"><span class="utility-icon">⌘</span><span>GitHub</span></a>
                 <button class="utility-item" id="exportButton" title="Export"><span class="utility-icon">⇩</span><span>Export</span></button>
 
                 
@@ -58,6 +60,7 @@
 
 
         </aside>
+        <div class="sidebar-backdop" id="sidebarBackdrop"></div>
 
 
         <!-- MAIN APPLICATION AREA-->
@@ -199,7 +202,7 @@
                     <!-- MAP CONTENT-->
                     <article class="map-card dashboard-card">
 
-                        <div class="card-header">
+                        <div class="card-header hidden">
 
                             <div>
                                 <h3>NYC Mobility Activity</h3>
@@ -240,11 +243,6 @@
 
                 
                 
-
-
-                
-
-
                 <!-- PRIMARY VISUALS -->
                 <section class="chart-grid" id="mobility-trends">
 
@@ -333,7 +331,7 @@
 
 
                 <!-- SECONDARY VISUALS -->
-                <section class="secondary-grid">
+                <section class="secondary-grid hidden">
 
                     <article class="dashboard-card">
                         <div class="card-header">
@@ -385,7 +383,7 @@
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr>
+                                <tr class="trip-row">
                                     <th>Pickup</th>
                                     <th>Dropoff</th>
                                     <th>Distance</th>
@@ -433,6 +431,94 @@
         </main>
 
 
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <aside class="detail-drawer" aria-hidden="true">
+
+
+        <div class="drawer-header">
+            <div>
+                <span class="drawer-eyebrow">TRIP DETAILS</span>
+
+                <h3 class="drawerTitle">Midtown Center → Upper East Side</h3>
+            </div>
+
+            <button class="drawer-close" id="drawerClose">×</button>
+        </div>
+
+        <div class="drawer-content">
+            <div class="detail-grid">
+                <div class="details-stat">
+                    <span>Distance</span>
+                    <strong>3.7 mi</strong>
+                </div>
+
+                <div class="details-stat">
+                    <span>Duration</span>
+                    <strong>16 min</strong>
+                </div>
+
+                <div class="details-stat">
+                    <span>Fare</span>
+                    <strong>18.50</strong>
+                </div>
+
+                <div class="detail-stat">
+                    <span>Status</span>
+                    <strong>Valid</strong>
+                </div>
+
+            </div>
+
+            <div class="drawer-section">
+                
+                <h4>Mobility context</h4>
+
+                <p>This trip represents a short-distance
+                Manhattan journey within the selected
+                dataset period.</p>
+            </div>
+        </div>
+
+
+    </aside>
+
+    <div class="dashboard-state hidden">
+        <div class="state-spinner"></div>
+
+        <strong>Loading mobility data</strong>
+
+        <span>Preparing the latest dashboard results</span>
+    </div>
+
+    <div class="dashboard-state empty-state hidden">
+
+        <strong>
+            No trips match these filters
+        </strong>
+
+        <span>
+            Try adjusting the date, distance, location or fare range.
+        </span>
+
+        <button id="emptyResetButton">
+            Reset Filters
+        </button>
+    </div>
+
+    <div class="dashboard-state error-state hidden">
+        
+        <strong>
+            Unable to load mobility data
+        </strong>
+
+        <span>
+            The dashboard could not reach the backend service.
+        </span>
+
+        <button id="retryButton">Try again</button>
     </div>
     
 
