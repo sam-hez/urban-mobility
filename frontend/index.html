@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Urban Mobility Data Explorer for analysing New York City taxi trip patterns">
+    
+
+    <title>Urban Mobility Data Explorer</title>
+
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" type="image/png" href="assets/images/fav.png">
+</head>
+
+<body>
+
+    <!-- TOP HEADER BAR -->
+    <header class="topbar">
+
+                <div class="topbar-brand">
+                    <img src="assets/images/logo.png" alt="UMI Logo" class="topbar-logo">
+                </div>
+
+                <div class="top-navigation">
+                    <a href="#overview" class="top-nav-item active">Overview</a>
+                    <a href="#mobility-trends" class="top-nav-item">Trends</a>
+                    <a href="#locations" class="top-nav-item">Locations</a>
+                    <a href="#trips" class="top-nav-item">Trips</a>
+                </div>
+
+                <div class="topbar-actions">
+
+                    <div class="period-selector">
+                        Jan 2023 - Dec 2023
+                    </div>
+
+                    <button class="menu-button" id="menuButton">☰</button>
+                </div>
+
+               
+
+    </header>
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+
+            <nav class="sidebar-nav utility-nav">
+
+                <button class="utility-item" data-drawer="about" title="About"><span class="utility-icon">?</span><span>About</span></button>
+
+                <a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page" class="utility-item" target="_blank"><span class="utility-icon">⌖</span><span>NYC TLC</span></a>
+                <a href="https://github.com/sam-hez/urban-mobility/" target="_blank" class="utility-item"><span class="utility-icon">⌘</span><span>GitHub</span></a>
+                <button class="utility-item" id="exportButton" title="Export"><span class="utility-icon">⇩</span><span>Export</span></button>
+
+                
+            </nav>
+
+
+        </aside>
+        <div class="sidebar-backdop" id="sidebarBackdrop"></div>
+
+
+        <!-- MAIN APPLICATION AREA-->
+        <main class="main-content">
+
+
+
+
+            <!-- DASHBOARD CONTENT -->
+            <div class="dashboard-content">
+
+
+                <!-- PAGE INTRO -->
+                <section class="page-introduction">
+
+                    <section class="dashboard-heading" id="overview">
+                        <p>Explore <strong>PATTERNS</strong> across New York City's taxi network</p>
+
+                    </section>
+
+                    <div class="date-summary">
+
+                        <span class="date-label">Dataset period</span>
+                        <strong>NYC Yellow Taxi Trips</strong>
+                    </div>
+
+                </section>
+
+                <section class="overview-grid">
+                    <div class="overview-left">
+
+                        <!-- KPI GRID -->
+                        <section class="kpi-grid">
+
+                                <article class="kpi-card">
+                                    <div class="kpi-top">
+                                        <div class="kpi-icon">↗</div>
+                                        <span class="positive-change">+8.4%</span>
+                                    </div>   
+
+                                    <p class="kpi-label">Total Trips</p>
+                                    <h3 id="totalTrips">124,680</h3>
+                                    <p class="kpi-context">trips in current selection</p>
+                                </article>
+
+
+                                <article class="kpi-card">
+                                    <div class="kpi-top">
+                                        <div class="kpi-icon">↔</div>
+                                        <span class="neutral-tag">Average</span>
+                                    </div>   
+
+                                    <p class="kpi-label">Trip Distance</p>
+                                    <h3 id="averageDistance">4.8 mi</h3>
+                                    <p class="kpi-context">average distance travelled</p>
+                                </article>
+
+
+                                <article class="kpi-card">
+                                    <div class="kpi-top">
+                                        <div class="kpi-icon">$</div>
+                                        <span class="neutral-tag">+3.1%</span>
+                                    </div>   
+
+                                    <p class="kpi-label">Average Fare</p>
+                                    <h3 id="averageFare">$24.60</h3>
+                                    <p class="kpi-context">average passenger cost</p>
+                                </article>
+
+
+                                <article class="kpi-card">
+                                    <div class="kpi-top">
+                                        <div class="kpi-icon">◷</div>
+                                        <span class="neutral-tag">Duration</span>
+                                    </div>   
+
+                                    <p class="kpi-label">Avg. Trip Duration</p>
+                                    <h3 id="averageDuration">18.4 min</h3>
+                                    <p class="kpi-context">pickup to dropoff</p>
+                                </article>
+
+
+                        </section>
+
+                        <!-- FILTERS -->
+                        <section class="filter-panel">
+                            <div class="filter-header">
+                                <div>
+                                    <h3>Explore the dataset</h3>
+                                    <!--<p>Refine dashboard results using mobility filter.</p>-->
+                                </div>
+                                <button class="reset-button" id="resetFilters">Reset filters</button>
+                            </div>
+
+                            <div class="filter-grid">
+                                    <div class="filter-group">
+                                        <label for="dateFilter">Date</label>
+                                        <input type="date" id="dateFilter">
+                                    </div>
+
+                                    <div class="filter-group">
+                                        <label for="pickupFilter"></label>
+                                        <select id="pickupFilter">
+                                            <option value="">All Locations</option>
+                                            <option value="Manhattan">Manhattan</option>
+                                            <option value="Queens">Queens</option>
+                                            <option value="Brooklyn">Brooklyn</option>
+                                            <option value="Bronx">Bronx</option>
+                                            <option value="Saten Island">Staten Island</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="filter-group">
+                                        <label for="distanceFilter">Distance</label>
+                                        <select id="distanceFilter">
+                                            <option value="">Any distance</option>
+                                            <option value="short">Under 3 miles</option>
+                                            <option value="medium">3 - 10 Miles</option>
+                                            <option value="long">Above 10 miles</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="filter-group">
+                                        <label for="fareFilter">Fare range</label>
+                                        <select id="fareFilter">
+                                            <option value="">Any fare</option>
+                                            <option value="low">Under $15</option>
+                                            <option value="medium">$15 - $40</option>
+                                            <option value="high">Above $40</option>
+                                        </select>
+                                    </div>
+
+                                    <button class="apply-filter-button" id="applyFilters">Apply Filters</button>
+                                    
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- MAP CONTENT-->
+                    <article class="map-card dashboard-card">
+
+                        <div class="card-header hidden">
+
+                            <div>
+                                <h3>NYC Mobility Activity</h3>
+                                <p>Taxi movement across New York City zones</p>
+                            </div>
+
+                            <span class="map-badge">
+                                Taxi Zones
+                            </span>
+                        </div>
+
+                        <div class="map-placeholder">
+                            <div class="map-overlay-card">
+                                <span class="map-overlay-label">Selected Zone</span>
+
+                                <strong>Midtown Center</strong>
+
+                                <div class="map-overlay-stats">
+                                    <div>
+                                        <span>Trips</span>
+                                        <strong>18,420</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Avg. fare</span>
+                                        <strong>18,420</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Avg. distance</span>
+                                        <strong>3.9mi</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                
+                
+                <!-- PRIMARY VISUALS -->
+                <section class="chart-grid" id="mobility-trends">
+
+                    <article class="dashboard-card chart-card chart-large">
+
+                        <div class="card-header">
+                            <div>
+                                <h3>Trip Over Time</h3>
+                                <p>Taxi demand throughout the selected period</p>
+
+                                <span class="chart-type-label">Time Series</span>
+                            </div>
+                        </div>
+
+                        <div class="placeholder-chart line-chart">
+
+                            <div class="chart-y-axis">
+                                <span>30K</span>
+                                <span>20K</span>
+                                <span>10K</span>
+                                <span>0</span>
+                            </div>
+
+                            <div class="chart-area">
+
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+                                <div class="grid-line"></div>
+
+                                <div class="mock-line">
+                                        <span class="point point-one"></span>
+                                        <span class="point point-two"></span>
+                                        <span class="point point-three"></span>
+                                        <span class="point point-four"></span>
+                                        <span class="point point-fix"></span>
+                                        <span class="point point-six"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="chart-bottom-labels">
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thur</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                            <span>Sun</span>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card chart-card" id="locations">
+
+                        <div class="card-header">
+                            <div>
+                                <h3>Top Pickup Areas</h3>
+                                <p>Highest demand pickup zones</p>
+                            </div>
+
+                            <span class="chart-type-label">
+                                Ranking
+                            </span>
+                        </div>
+
+                        <div class="ranking-list">
+                            <div class="ranking-item">
+                                <div class="rank-number">01</div>
+                                <div class="rank-details">
+                                    <div class="rank-title">
+                                        <strong>Midtown Center</strong>
+                                        <span>18,420</span>
+                                    </div>
+
+                                    <div class="progress-track">
+                                        <div class="progress-value" style="width: 92%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- SECONDARY VISUALS -->
+                <section class="secondary-grid hidden">
+
+                    <article class="dashboard-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Fare vs Distance</h3>
+                                <p>Relationship between distance and cost</p>
+                            </div>
+                        </div>
+
+                        <div class="scatter-placeholder">
+                            <span class="scatter-dot" style="left: 13%; bottom: 18%;"></span>
+                        </div>
+                    </article>
+
+                    <article class="dashboard-card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Trips by Borough</h3>
+                                <p>Geographic distribution of pickups</p>
+                            </div>
+                        </div>
+
+                        <div class="borough-list">
+                            <div class="borough-row">
+                                <span>Manhattan</span>
+                                <div class="borough-bar">
+                                    <div style="width: 84%;"></div>
+                                </div>
+
+                                <strong>54%</strong>
+                            </div>
+                        </div>
+                    </article>
+
+                </section>
+
+                <!-- TRIP TABLE -->
+                <section class="dashboard-card trips-section" id="trips">
+
+                    <div class="card-header trips-header">
+                        <div>
+                            <h3>Recent Trip Records</h3>
+                            <p>Preview of trip-level mobility data</p>
+                        </div>
+
+                        <button class="secondary-button">View All Trips</button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr class="trip-row">
+                                    <th>Pickup</th>
+                                    <th>Dropoff</th>
+                                    <th>Distance</th>
+                                    <th>Duration</th>
+                                    <th>Fare</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+
+                                    <td>Midtown Center</td>
+                                    <td>Upper East Side</td>
+                                    <td>3.7mi</td>
+                                    <td>16 min</td>
+                                    <td>$18.50</td>
+                                    <td><span class="status-pill">Valid</span></td>
+                                </tr>
+
+                                <tr>
+
+                                    <td>JFK Airport</td>
+                                    <td>Times Square</td>
+                                    <td>17.4 mi</td>
+                                    <td>48 min</td>
+                                    <td>$72.40</td>
+                                    <td><span class="status-pill">Valid</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+
+                <!-- FOOTER -->
+                <footer class="dashboard-footer">
+                    <p>Urban Mobility Data Explorer</p>
+                    <p>NYC Taxi & Limousine Commission Dataset</p>
+                </footer>
+            </div>
+
+
+
+        </main>
+
+
+    </div>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <aside class="detail-drawer" aria-hidden="true">
+
+
+        <div class="drawer-header">
+            <div>
+                <span class="drawer-eyebrow">TRIP DETAILS</span>
+
+                <h3 class="drawerTitle">Midtown Center → Upper East Side</h3>
+            </div>
+
+            <button class="drawer-close" id="drawerClose">×</button>
+        </div>
+
+        <div class="drawer-content">
+            <div class="detail-grid">
+                <div class="details-stat">
+                    <span>Distance</span>
+                    <strong>3.7 mi</strong>
+                </div>
+
+                <div class="details-stat">
+                    <span>Duration</span>
+                    <strong>16 min</strong>
+                </div>
+
+                <div class="details-stat">
+                    <span>Fare</span>
+                    <strong>18.50</strong>
+                </div>
+
+                <div class="detail-stat">
+                    <span>Status</span>
+                    <strong>Valid</strong>
+                </div>
+
+            </div>
+
+            <div class="drawer-section">
+                
+                <h4>Mobility context</h4>
+
+                <p>This trip represents a short-distance
+                Manhattan journey within the selected
+                dataset period.</p>
+            </div>
+        </div>
+
+
+    </aside>
+
+    <div class="dashboard-state hidden">
+        <div class="state-spinner"></div>
+
+        <strong>Loading mobility data</strong>
+
+        <span>Preparing the latest dashboard results</span>
+    </div>
+
+    <div class="dashboard-state empty-state hidden">
+
+        <strong>
+            No trips match these filters
+        </strong>
+
+        <span>
+            Try adjusting the date, distance, location or fare range.
+        </span>
+
+        <button id="emptyResetButton">
+            Reset Filters
+        </button>
+    </div>
+
+    <div class="dashboard-state error-state hidden">
+        
+        <strong>
+            Unable to load mobility data
+        </strong>
+
+        <span>
+            The dashboard could not reach the backend service.
+        </span>
+
+        <button id="retryButton">Try again</button>
+    </div>
+    
+
+
+<script src="assets/app.js"></script>
+
+
+</body>
+</html>
