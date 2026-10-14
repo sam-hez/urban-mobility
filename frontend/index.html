@@ -12,106 +12,56 @@
 
 <body>
 
+    <!-- TOP HEADER BAR -->
+    <header class="topbar">
+
+                <div class="topbar-brand">
+                    <img src="assets/images/logo.png" alt="UMI Logo" class="topbar-logo">
+                </div>
+
+                <div class="top-navigation">
+                    <a href="#overview" class="top-nav-item active">Overview</a>
+                    <a href="#mobility-trends" class="top-nav-item">Trends</a>
+                    <a href="#locations" class="top-nav-item">Locations</a>
+                    <a href="#trips" class="top-nav-item">Trips</a>
+                </div>
+
+                <div class="topbar-actions">
+
+                    <div class="period-selector">
+                        Jan 2023 - Dec 2023
+                    </div>
+
+                    <button class="menu-button" id="menuButton">☰</button>
+                </div>
+
+               
+
+    </header>
+
     <div class="app-layout">
 
         <!-- SIDEBAR -->
         <aside class="sidebar" id="sidebar">
 
-            <div class="brand ">
-                <div class="brand-icon">UMI</div>
-                
 
-                <div class="brand-text">
-                    <h1>Urban Mobility Inteligence </h1>
-                </div>
-            </div>
+            <nav class="sidebar-nav utility-nav">
 
-            <nav class="sidebar-nav">
+                <button class="utility-item" data-drawer="about" title="About"><span class="utility-icon">?</span><span>About</span></button>
 
-                
-
-                <a href="#" class="nav-item active">
-                    <span class="nav-icon">▦</span>
-                    <span>Overview</span>
-                </a>
-
-                <a href="#mobility-trends" class="nav-item">
-                    <span class="nav-icon">↗</span>
-                    <span>Mobility Trends</span>
-                </a>
-
-                <a href="#mobility-trends" class="nav-item">
-                    <span class="nav-icon">↗</span>
-                    <span>Locations</span>
-                </a>
-
-                <a href="#mobility-trends" class="nav-item">
-                    <span class="nav-icon">↗</span>
-                    <span>Trip Explorer</span>
-                </a>
-
-                <p class="nav-label nav-label-secondary">
-                    About
-                </p>
-
-                <a href="#" class="nav-item">
-                    <span class="nav-icon">?</span>
-                    <span>About Dataset</span>
-                </a>
-
-                <a href="#" class="nav-item">
-                    <span class="nav-icon">i</span>
-                    <span>Github </span>
-                </a>
+                <a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page" target="_blank"><span class="utility-icon">⌖</span><span>NYC TLC</span></a>
+                <a href="https://github.com/sam-hez/urban-mobility/" target="_blank"><span class="utility-icon">⌘</span><span>GitHub</span></a>
+                <button class="utility-item" id="exportButton" title="Export"><span class="utility-icon">⇩</span><span>Export</span></button>
 
                 
             </nav>
 
 
-            <div class="sidebar-footer">
-                <div class="dataset-status">
-                    <span class="status-dot"></span>
-
-                    <div>
-                        <strong><a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page" target="_blank">NYC TLC Dataset</a></strong>
-                        
-                    </div>
-                </div>
-            </div>
         </aside>
 
 
         <!-- MAIN APPLICATION AREA-->
         <main class="main-content">
-
-
-
-            <!-- TOP HEADER BAR -->
-            <header class="topbar">
-
-                <div class="topbar-left">
-                    <button class="menu-button" id="menuButton">☰</button>
-
-                    <div class="hidden">
-                        <h2>Mobility Overview</h2>
-                        <p>Explore patterns across New York City's taxi network</p>
-                    </div>
-                </div>
-
-
-                <div class="topbar-right">
-
-                    <div class="data-badge">
-                        <span class="status-dot"></span>
-                        Dataset Ready
-                    </div>
-
-                    <div class="profile-avatar">
-                        ?
-                    </div>
-                </div>
-
-            </header>
 
 
 
@@ -123,14 +73,10 @@
                 <!-- PAGE INTRO -->
                 <section class="page-introduction">
 
-                    <div>
-                        <p class="eyebrow">URBAN MOBILITY INTELLIGENCE  </p>
-                        <h2>How is New York moving?</h2>
+                    <section class="dashboard-heading" id="overview">
+                        <p>Explore <strong>PATTERNS</strong> across New York City's taxi network</p>
 
-                        <p class="page-description hidden">
-                            Explore taxi demand, travel distances, fares and geographic movement across New York City.
-                        </p>
-                    </div>
+                    </section>
 
                     <div class="date-summary">
 
@@ -140,113 +86,163 @@
 
                 </section>
 
-                
-                <!-- FILTERS -->
-                <section class="filter-panel">
-                    <div class="filter-header">
-                        <div>
-                            <h3>Explore the dataset</h3>
-                            <!--<p>Refine dashboard results using mobility filter.</p>-->
+                <section class="overview-grid">
+                    <div class="overview-left">
+
+                        <!-- KPI GRID -->
+                        <section class="kpi-grid">
+
+                                <article class="kpi-card">
+                                    <div class="kpi-top">
+                                        <div class="kpi-icon">↗</div>
+                                        <span class="positive-change">+8.4%</span>
+                                    </div>   
+
+                                    <p class="kpi-label">Total Trips</p>
+                                    <h3 id="totalTrips">124,680</h3>
+                                    <p class="kpi-context">trips in current selection</p>
+                                </article>
+
+
+                                <article class="kpi-card">
+                                    <div class="kpi-top">
+                                        <div class="kpi-icon">↔</div>
+                                        <span class="neutral-tag">Average</span>
+                                    </div>   
+
+                                    <p class="kpi-label">Trip Distance</p>
+                                    <h3 id="averageDistance">4.8 mi</h3>
+                                    <p class="kpi-context">average distance travelled</p>
+                                </article>
+
+
+                                <article class="kpi-card">
+                                    <div class="kpi-top">
+                                        <div class="kpi-icon">$</div>
+                                        <span class="neutral-tag">+3.1%</span>
+                                    </div>   
+
+                                    <p class="kpi-label">Average Fare</p>
+                                    <h3 id="averageFare">$24.60</h3>
+                                    <p class="kpi-context">average passenger cost</p>
+                                </article>
+
+
+                                <article class="kpi-card">
+                                    <div class="kpi-top">
+                                        <div class="kpi-icon">◷</div>
+                                        <span class="neutral-tag">Duration</span>
+                                    </div>   
+
+                                    <p class="kpi-label">Avg. Trip Duration</p>
+                                    <h3 id="averageDuration">18.4 min</h3>
+                                    <p class="kpi-context">pickup to dropoff</p>
+                                </article>
+
+
+                        </section>
+
+                        <!-- FILTERS -->
+                        <section class="filter-panel">
+                            <div class="filter-header">
+                                <div>
+                                    <h3>Explore the dataset</h3>
+                                    <!--<p>Refine dashboard results using mobility filter.</p>-->
+                                </div>
+                                <button class="reset-button" id="resetFilters">Reset filters</button>
+                            </div>
+
+                            <div class="filter-grid">
+                                    <div class="filter-group">
+                                        <label for="dateFilter">Date</label>
+                                        <input type="date" id="dateFilter">
+                                    </div>
+
+                                    <div class="filter-group">
+                                        <label for="pickupFilter"></label>
+                                        <select id="pickupFilter">
+                                            <option value="">All Locations</option>
+                                            <option value="Manhattan">Manhattan</option>
+                                            <option value="Queens">Queens</option>
+                                            <option value="Brooklyn">Brooklyn</option>
+                                            <option value="Bronx">Bronx</option>
+                                            <option value="Saten Island">Staten Island</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="filter-group">
+                                        <label for="distanceFilter">Distance</label>
+                                        <select id="distanceFilter">
+                                            <option value="">Any distance</option>
+                                            <option value="short">Under 3 miles</option>
+                                            <option value="medium">3 - 10 Miles</option>
+                                            <option value="long">Above 10 miles</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="filter-group">
+                                        <label for="fareFilter">Fare range</label>
+                                        <select id="fareFilter">
+                                            <option value="">Any fare</option>
+                                            <option value="low">Under $15</option>
+                                            <option value="medium">$15 - $40</option>
+                                            <option value="high">Above $40</option>
+                                        </select>
+                                    </div>
+
+                                    <button class="apply-filter-button" id="applyFilters">Apply Filters</button>
+                                    
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- MAP CONTENT-->
+                    <article class="map-card dashboard-card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <h3>NYC Mobility Activity</h3>
+                                <p>Taxi movement across New York City zones</p>
+                            </div>
+
+                            <span class="map-badge">
+                                Taxi Zones
+                            </span>
                         </div>
-                        <button class="reset-button" id="resetFilters">Reset filters</button>
-                    </div>
 
-                    <div class="filter-grid">
-                            <div class="filter-group">
-                                <label for="dateFilter">Date</label>
-                                <input type="date" id="dateFilter">
+                        <div class="map-placeholder">
+                            <div class="map-overlay-card">
+                                <span class="map-overlay-label">Selected Zone</span>
+
+                                <strong>Midtown Center</strong>
+
+                                <div class="map-overlay-stats">
+                                    <div>
+                                        <span>Trips</span>
+                                        <strong>18,420</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Avg. fare</span>
+                                        <strong>18,420</strong>
+                                    </div>
+
+                                    <div>
+                                        <span>Avg. distance</span>
+                                        <strong>3.9mi</strong>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="filter-group">
-                                <label for="pickupFilter"></label>
-                                <select id="pickupFilter">
-                                    <option value="">All Locations</option>
-                                    <option value="Manhattan">Manhattan</option>
-                                    <option value="Queens">Queens</option>
-                                    <option value="Brooklyn">Brooklyn</option>
-                                    <option value="Bronx">Bronx</option>
-                                    <option value="Saten Island">Staten Island</option>
-                                </select>
-                            </div>
-
-                            <div class="filter-group">
-                                <label for="distanceFilter">Distance</label>
-                                <select id="distanceFilter">
-                                    <option value="">Any distance</option>
-                                    <option value="short">Under 3 miles</option>
-                                    <option value="medium">3 - 10 Miles</option>
-                                    <option value="long">Above 10 miles</option>
-                                </select>
-                            </div>
-
-                            <div class="filter-group">
-                                <label for="fareFilter">Fare range</label>
-                                <select id="fareFilter">
-                                    <option value="">Any fare</option>
-                                    <option value="low">Under $15</option>
-                                    <option value="medium">$15 - $40</option>
-                                    <option value="high">Above $40</option>
-                                </select>
-                            </div>
-
-                            <button class="apply-filter-button" id="applyFilters">Apply Filters</button>
-                            
-                    </div>
+                        </div>
+                    </article>
                 </section>
 
-
-                <!-- KPI CARDS -->
-                <section class="kpi-grid">
-
-                        <article class="kpi-card">
-                            <div class="kpi-top">
-                                <div class="kpi-icon">↗</div>
-                                <span class="positive-change">+8.4%</span>
-                            </div>   
-
-                            <p class="kpi-label">Total Trips</p>
-                            <h3 id="totalTrips">124,680</h3>
-                            <p class="kpi-context">trips in current selection</p>
-                        </article>
+                
+                
 
 
-                        <article class="kpi-card">
-                            <div class="kpi-top">
-                                <div class="kpi-icon">↔</div>
-                                <span class="neutral-tag">Average</span>
-                            </div>   
-
-                            <p class="kpi-label">Trip Distance</p>
-                            <h3 id="averageDistance">4.8 mi</h3>
-                            <p class="kpi-context">average distance travelled</p>
-                        </article>
-
-
-                        <article class="kpi-card">
-                            <div class="kpi-top">
-                                <div class="kpi-icon">$</div>
-                                <span class="neutral-tag">+3.1%</span>
-                            </div>   
-
-                            <p class="kpi-label">Average Fare</p>
-                            <h3 id="averageFare">$24.60</h3>
-                            <p class="kpi-context">average passenger cost</p>
-                        </article>
-
-
-                        <article class="kpi-card">
-                            <div class="kpi-top">
-                                <div class="kpi-icon">◷</div>
-                                <span class="neutral-tag">Duration</span>
-                            </div>   
-
-                            <p class="kpi-label">Avg. Trip Duration</p>
-                            <h3 id="averageDuration">18.4 min</h3>
-                            <p class="kpi-context">pickup to dropoff</p>
-                        </article>
-
-
-                </section>
+                
 
 
                 <!-- PRIMARY VISUALS -->
@@ -441,7 +437,7 @@
     
 
 
-<script src="app.js"></script>
+<script src="assets/app.js"></script>
 
 
 </body>

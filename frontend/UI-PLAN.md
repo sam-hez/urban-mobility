@@ -133,6 +133,16 @@ The frontend currently uses temporary placeholder values
 
 ## COLORS
 
-Black 
-Neon
+Dark Blue -  #OF1A2E
+Neon - #84E000
+
+## FONT CHOICES
+
+[] DM Sans 
+Sora
+Plus Jakarata Sans
+Outfit
+Manrope
+
+
 
