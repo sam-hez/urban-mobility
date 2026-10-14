@@ -131,3 +131,8 @@ The dashboard will support:
 
 The frontend currently uses temporary placeholder values
 
+## COLORS
+
+Black 
+Neon
+

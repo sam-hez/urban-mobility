@@ -85,7 +85,6 @@ a {
     align-items: center;
     gap: 12px;
     padding: 0 22px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.88);
 }
 
 .brand-icon{
@@ -206,7 +205,7 @@ a {
 
 /* TOP BAR */
 
-.tobbar{
+.topbar {
     height: 88px;
     background: rgba(255, 255, 255, 0.95);
     border-bottom: 1px solid var(--border);
@@ -236,12 +235,12 @@ a {
     color: var(--text-secondary);
 }
 
-.topbar-right{
+.topbar-right {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-.data-badge{
+.data-badge {
     display: flex;
     align-items: center;
     gap: 7px;
@@ -254,7 +253,7 @@ a {
     font-weight: 600;
 }
 
-.data-badge .status-dot{
+.data-badge .status-dot {
     margin-top: 0;
 }
 .profile-avatar {
@@ -270,7 +269,7 @@ a {
     font-weight: 700;
 }
 
-.menu-button{
+.menu-button {
     display: none;
     border: 0;
     background: transparent;
