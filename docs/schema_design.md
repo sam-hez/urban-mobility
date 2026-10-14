@@ -44,9 +44,3 @@ erDiagram
 
 Foreign key columns are indexed automatically by InnoDB.
 
-## Our reasoning (team fills this in, then copies it into the report)
-- Why zone attributes live in `zones` and not in `trips`:
-- Why the fee columns are NOT NULL DEFAULT 0 instead of NULL:
-- Why indexes are created after the bulk load:
-- Why the CHECK limits repeat the cleaning rules, and the trade-off if a limit changes:
-- EXPLAIN results on the full data (fill in after loading):
