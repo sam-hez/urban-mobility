@@ -22,3 +22,5 @@ python-dotenv
 sqlalchemy
 pymysql
 cryptography
+flask
+flask-cors
