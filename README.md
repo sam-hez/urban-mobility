@@ -84,3 +84,12 @@ TODO
 
 ## 7. Documentation
 TODO (report, schema, database dump)
+
+### Verify, rebuild and tune the database
+- `python database/verify_db.py` checks tables, keys, indexes, constraints and data (expect "37 checks passed, 0 failed").
+- No cleaned parquet? Restore the small sample: create an empty database, then
+  `mysql -u <user> -p <database> < database/schema_dump.sql` and `mysql -u <user> -p <database> < database/sample_data.sql`
+  (all lookup tables plus 1,000 trips).
+- Recommended for the full 7.5 million trips: `innodb_buffer_pool_size = 2G` in `/etc/mysql/mysql.conf.d/mysqld.cnf`
+  (under `[mysqld]`), then `sudo service mysql restart`.
+- `python backend/benchmark_api.py` times every API endpoint.
