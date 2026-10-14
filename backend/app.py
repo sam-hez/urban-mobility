@@ -76,7 +76,6 @@ def warm_cache():
         except Exception:
             pass   
 
-
 if __name__ == "__main__":
     if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
         threading.Thread(target=warm_cache, daemon=True).start()
