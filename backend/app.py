@@ -1,7 +1,12 @@
+from flask import Flask, jsonify
+
+from routes.system import system
+from settings import HOST, PORT
+
 import os
 import threading
 
-from flask import Flask, jsonify
+
 from flask_cors import CORS
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.exceptions import HTTPException
@@ -9,10 +14,31 @@ from werkzeug.exceptions import HTTPException
 from routes import api
 from validation import ApiError
 
-app = Flask(__name__)
-CORS(app)                       
-app.json.sort_keys = False      
-app.register_blueprint(api)
+
+def create_app():
+    app = Flask(__name__)
+    CORS(app)                       
+    app.json.sort_keys = False      
+    app.register_blueprint(api)
+
+    @app.after_request
+    def add_cors_header(response):
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        return response
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({"error": "not found"}), 404
+
+    @app.errorhandler(500)
+    def server_error(error):
+        return jsonify({"error": "server error"}), 500
+
+    return app
+
+
+app = create_app()
+
 
 
 @app.errorhandler(ApiError)
@@ -54,4 +80,4 @@ def warm_cache():
 if __name__ == "__main__":
     if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
         threading.Thread(target=warm_cache, daemon=True).start()
-    app.run(debug=True)
+    app.run(host=HOST, port=PORT, debug=False)

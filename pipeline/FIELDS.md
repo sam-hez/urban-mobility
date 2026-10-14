@@ -6,25 +6,25 @@ One row is one cleaned yellow taxi trip, already joined with the zone informatio
 
 | Column | Type | Notes |
 | --- | --- | --- |
-| vendor_id | int | taxi technology vendor, unknown values set to 0 |
+| vendor_id | int | taxi technology vendor |
 | pickup_datetime | datetime | cleaned, always inside the month of the file |
 | dropoff_datetime | datetime | always after pickup |
 | passenger_count | int | missing or 0 was set to 1 |
 | trip_distance | float | miles, between 0 and 100 |
-| rate_code_id | int | missing or unknown set to 99 |
-| store_and_fwd_flag | text | Y or N, empty if it was something else |
+| rate_code_id | int | missing was set to 99 |
+| store_and_fwd_flag | text | Y or N, can be empty |
 | pickup_location_id | int | joins to zone lookup LocationID |
 | dropoff_location_id | int | joins to zone lookup LocationID |
-| payment_type_id | int | missing or unknown set to 5 |
+| payment_type_id | int | missing was set to 5 |
 | fare_amount | float | dollars, between 0 and 500 |
-| extra | float | empty was set to 0.0 |
-| mta_tax | float | empty was set to 0.0 |
+| extra | float | can be empty in some files |
+| mta_tax | float | can be empty in some files |
 | tip_amount | float | dollars, not negative |
 | tolls_amount | float | dollars, not negative |
-| improvement_surcharge | float | empty was set to 0.0 |
+| improvement_surcharge | float | can be empty in some files |
 | total_amount | float | dollars, between 0 and 1000 |
-| congestion_surcharge | float | empty was set to 0.0 |
-| airport_fee | float | empty was set to 0.0 |
+| congestion_surcharge | float | can be empty in some files |
+| airport_fee | float | can be empty in some files |
 | duration_min | float | dropoff minus pickup in minutes, between 1 and 180 |
 | pickup_borough | text | from taxi_zone_lookup |
 | pickup_zone | text | from taxi_zone_lookup |
@@ -36,19 +36,6 @@ One row is one cleaned yellow taxi trip, already joined with the zone informatio
 | dropoff_service_zone | text | from taxi_zone_lookup |
 | dropoff_lat | float | centre of the zone polygon, empty for zones without polygon |
 | dropoff_lon | float | same as above |
-
-## Reference tables
-
-Saved next to the trips in `data/processed/`:
-
-| File | Columns |
-| --- | --- |
-| zones.csv | location_id, borough, zone, service_zone, polygon_parts, centroid_lat, centroid_lon |
-| vendors.csv | vendor_id, vendor_name |
-| rate_codes.csv | rate_code_id, description |
-| payment_types.csv | payment_type_id, description |
-
-Every id in `trips_clean.parquet` exists in these tables, so they can be used as foreign keys. `python pipeline/validate_clean.py` checks this.
 
 ## Zone table
 
