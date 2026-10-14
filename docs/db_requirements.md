@@ -43,8 +43,3 @@ repeated in millions of trip rows.
 - 5 zones (57, 104, 105, 264, 265) have no polygon, so their centroid is NULL.
 - The cleaned file is large (about 7.5 million rows), so it must be loaded in batches.
 - Derived features are not part of the cleaned file yet.
-
-## Open questions for the team
-- Where is the final cleaned parquet shared (it is not in git)?
-- Which derived features will be added, and when?
-- Does the frontend need zone polygons, or are centroids enough?
