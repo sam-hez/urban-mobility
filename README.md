@@ -1,8 +1,8 @@
 # Urban Mobility Data Explorer
 
 
-- **Video walkthrough:** TODO
-- **Team participation sheet:** TODO
+- **Video walkthrough:** https://drive.google.com/drive/folders/1dzm_Kt-q5SeBAS5cxXOiqn3UQkaUXOdK?usp=sharing
+- **Team participation sheet:** https://docs.google.com/spreadsheets/d/10EPXHb65T3EtCAvp0eya8eui_a9QJ-kfmYMxVwg_cbo/edit?usp=sharing
 
 ## Team members: 
 - Ivan Ineza Hakizimana
