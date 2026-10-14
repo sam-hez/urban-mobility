@@ -6,6 +6,7 @@ import pandas as pd
 import pyarrow.parquet as pq
 
 from config import CLEAN_PARQUET, LOG_DIR
+from features import TIME_LABELS
 from reference import FEE_COLUMNS, PAYMENT_TYPES, RATE_CODES, VENDORS
 from rules import (
     CRITICAL, MAX_DISTANCE, MAX_DURATION, MAX_FARE, MAX_PASSENGERS, MAX_SPEED, MAX_TIP, MAX_TOTAL, MIN_DURATION,
@@ -57,6 +58,14 @@ def main():
         fail("unknown dropoff zone", (~df["dropoff_location_id"].isin(zone_ids)).sum())
         fail("store flag not Y, N or empty", (df["store_and_fwd_flag"].notna() & ~df["store_and_fwd_flag"].isin(["Y", "N"])).sum())
         fail("empty fee columns", df[FEE_COLUMNS].isna().sum().sum())
+        fail("pickup hour outside 0 to 23", ((df["pickup_hour"] < 0) | (df["pickup_hour"] > 23)).sum())
+        fail("pickup weekday outside 0 to 6", ((df["pickup_dow"] < 0) | (df["pickup_dow"] > 6)).sum())
+        fail("weekend flag wrong", (df["is_weekend"] != (df["pickup_dow"] >= 5).astype(int)).sum())
+        fail("pickup date does not match time", (df["pickup_date"] != df["pickup_datetime"].dt.strftime("%Y-%m-%d")).sum())
+        fail("time period unknown", (~df["time_period"].isin(TIME_LABELS)).sum())
+        fail("fare per mile not positive", (df["fare_per_mile"] <= 0).sum())
+        fail("tip percent on a non-card trip", (df["tip_pct"].notna() & (df["payment_type_id"] != 1)).sum())
+        fail("tip percent missing on a card trip", (df["tip_pct"].isna() & (df["payment_type_id"] == 1)).sum())
         fail("zone name missing", (df["pickup_zone"].isna() | df["dropoff_zone"].isna()).sum())
 
     if len(months) > 1:
