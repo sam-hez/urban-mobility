@@ -2,9 +2,8 @@
 
 A web application that explores yellow taxi trips in New York City for January 2019. It cleans the official TLC data, stores it in MySQL, serves it through a Flask API and shows patterns in time, place and fares on an interactive dashboard.
 
-- **Video walkthrough:** ADD YOUR VIDEO LINK HERE
-- **Team participation sheet:** ADD YOUR SHEET LINK HERE
-- **Technical report (PDF):** ADD YOUR REPORT LINK HERE
+- **Video walkthrough:** https://drive.google.com/drive/folders/1dzm_Kt-q5SeBAS5cxXOiqn3UQkaUXOdK?usp=sharing
+- **Team participation sheet:** https://docs.google.com/spreadsheets/d/10EPXHb65T3EtCAvp0eya8eui_a9QJ-kfmYMxVwg_cbo/edit?usp=sharing
 
 ## Team
 
