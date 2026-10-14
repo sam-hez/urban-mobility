@@ -1,12 +1,15 @@
 # Urban Mobility Data Explorer
 
-> TODO: 1-2 sentences in our own words on what this project does.
 
 - **Video walkthrough:** TODO
 - **Team participation sheet:** TODO
-- **Team members:** TODO
 
-## 1. Projecr overview
+## Team members: 
+- Ivan Ineza Hakizimana
+- Muhozi Ntwali Devis
+- Hezakiah Epodoi
+
+## 1. Project overview
 TODO
 
 ## 2. Tech stack
@@ -17,11 +20,12 @@ TODO
 | Frontend | TODO |
 
 ## 3. Prerequisites
-TODO (Python version, MySQL version, Git, WSL notes)
+- Python 3.14.4
+- MySQL 8.4.11
 
 ## 4. Setup
 ### 4.1 Data files
-TODO
+
 ### 4.2 Database (MySQL 8.0.16 or newer)
 1. Start MySQL (on WSL/Ubuntu: `sudo service mysql start`).
 2. Create the database and user:
@@ -74,13 +78,13 @@ All endpoints are GET and return JSON. Errors look like `{"error": "message"}` (
 `page` (1-10000), `per_page` (1-100).
 
 ### 4.4 Frontend
-TODO
+
 
 ## 5. Running the project
-TODO
+
 
 ## 6. Project Structure
-TODO
+
 
 ## 7. Documentation
 TODO (report, schema, database dump)
