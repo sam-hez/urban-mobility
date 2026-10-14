@@ -15,9 +15,9 @@ const averageDuration = document.getElementById("averageDuration");
 
 
 // MOBILE NAV
-menuButton.addEventListener("click", function () {
+/*menuButton.addEventListener("click", function () {
     sidebar.classList.toggle("open");
-});
+});*/
 
 
 // SAMPLE DASHBOARD DATA

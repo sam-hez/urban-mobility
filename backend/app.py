@@ -1,69 +1,77 @@
-from flask import Flask, jsonify
-
-from routes.system import system
-from settings import HOST, PORT
-
 import os
 import threading
 
-
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.exceptions import HTTPException
 
-from routes import api
+from api_routes import api
+from routes.system import system
+from settings import HOST, PORT
 from validation import ApiError
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.abspath(__file__)
+    )
+)
+
+FRONTEND_DIR = os.path.join(
+    BASE_DIR,
+    "frontend"
+)
 
 
 def create_app():
-    app = Flask(__name__)
+    
+    app = Flask(
+        __name__,
+        static_folder=FRONTEND_DIR,
+        static_url_path=""
+    )
+
     CORS(app)                       
     app.json.sort_keys = False      
     app.register_blueprint(api)
+    app.register_blueprint(system)
 
-    @app.after_request
-    def add_cors_header(response):
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        return response
+    @app.route("/")
+    def frontend():
 
-    @app.errorhandler(404)
-    def not_found(error):
-        return jsonify({"error": "not found"}), 404
+        return send_from_directory(
+            FRONTEND_DIR,
+            "index.html"
+        )
 
-    @app.errorhandler(500)
-    def server_error(error):
-        return jsonify({"error": "server error"}), 500
+    @app.errorhandler(ApiError)
+    def handle_api_error(error):
+        body = {"error": error.message}
+        if error.field:
+            body["field"] = error.field
+        return jsonify(body), error.status
+
+
+    @app.errorhandler(SQLAlchemyError)
+    def handle_database_error(error):
+        app.logger.error("Database error: %s", error)
+        return jsonify({"error": "The database is unavailable or the query failed. Try again."}), 503
+
+
+    @app.errorhandler(HTTPException)
+    def handle_http_error(error):
+        return jsonify({"error": error.description}), error.code
+
+
+    @app.errorhandler(Exception)
+    def handle_unexpected_error(error):
+        app.logger.exception("Unexpected error")
+        return jsonify({"error": "Internal server error"}), 500
+
 
     return app
 
-
 app = create_app()
-
-
-
-@app.errorhandler(ApiError)
-def handle_api_error(error):
-    body = {"error": error.message}
-    if error.field:
-        body["field"] = error.field
-    return jsonify(body), error.status
-
-
-@app.errorhandler(SQLAlchemyError)
-def handle_database_error(error):
-    app.logger.error("Database error: %s", error)
-    return jsonify({"error": "The database is unavailable or the query failed. Try again."}), 503
-
-
-@app.errorhandler(HTTPException)
-def handle_http_error(error):
-    return jsonify({"error": error.description}), error.code
-
-
-@app.errorhandler(Exception)
-def handle_unexpected_error(error):
-    app.logger.exception("Unexpected error")
-    return jsonify({"error": "Internal server error"}), 500
 
 
 def warm_cache():

@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+from features import add_features
 
 import numpy as np
 import pandas as pd
@@ -111,6 +112,7 @@ def main():
         df = impute(df.copy(), impute_counts)
         df = df.drop(columns=["source_row"])
         df = fix_types(df)
+        df = add_features(df)
         df = enrich_trips(df, zones)
 
         if len(df) > 0:
