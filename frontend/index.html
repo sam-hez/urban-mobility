@@ -15,21 +15,20 @@
     <div class="app-layout">
 
         <!-- SIDEBAR -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
 
-            <div class="brand">
-                <div class="brand-icon">UM</div>
+            <div class="brand ">
+                <div class="brand-icon">UMI</div>
                 
 
                 <div class="brand-text">
-                    <h1>NYC Urban Mobiility </h1>
-                    <p>Data Explorer</p>
+                    <h1>Urban Mobility Inteligence </h1>
                 </div>
             </div>
 
             <nav class="sidebar-nav">
 
-                <p class="nav-label">Workspace</p>
+                
 
                 <a href="#" class="nav-item active">
                     <span class="nav-icon">▦</span>
@@ -52,12 +51,17 @@
                 </a>
 
                 <p class="nav-label nav-label-secondary">
-                    Project
+                    About
                 </p>
 
                 <a href="#" class="nav-item">
-                    <span class="nav-icon">i</span>
+                    <span class="nav-icon">?</span>
                     <span>About Dataset</span>
+                </a>
+
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">i</span>
+                    <span>Github </span>
                 </a>
 
                 
@@ -69,8 +73,8 @@
                     <span class="status-dot"></span>
 
                     <div>
-                        <strong>NYC Taxi Dataset</strong>
-                        <p>Placeholder data active</p>
+                        <strong><a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page" target="_blank">NYC TLC Dataset</a></strong>
+                        
                     </div>
                 </div>
             </div>
@@ -88,7 +92,7 @@
                 <div class="topbar-left">
                     <button class="menu-button" id="menuButton">☰</button>
 
-                    <div>
+                    <div class="hidden">
                         <h2>Mobility Overview</h2>
                         <p>Explore patterns across New York City's taxi network</p>
                     </div>
@@ -103,7 +107,7 @@
                     </div>
 
                     <div class="profile-avatar">
-                        SE
+                        ?
                     </div>
                 </div>
 
@@ -123,15 +127,15 @@
                         <p class="eyebrow">URBAN MOBILITY INTELLIGENCE  </p>
                         <h2>How is New York moving?</h2>
 
-                        <p class="page-description">
-                            Explore taxi demand, travel distances, fares and greographic movement across New York City.
+                        <p class="page-description hidden">
+                            Explore taxi demand, travel distances, fares and geographic movement across New York City.
                         </p>
                     </div>
 
                     <div class="date-summary">
 
                         <span class="date-label">Dataset period</span>
-                        <strong>NYC Yello Taxi Trips</strong>
+                        <strong>NYC Yellow Taxi Trips</strong>
                     </div>
 
                 </section>
@@ -142,7 +146,7 @@
                     <div class="filter-header">
                         <div>
                             <h3>Explore the dataset</h3>
-                            <p>Refine dashboard results using mobility filter.</p>
+                            <!--<p>Refine dashboard results using mobility filter.</p>-->
                         </div>
                         <button class="reset-button" id="resetFilters">Reset filters</button>
                     </div>
@@ -161,7 +165,7 @@
                                     <option value="Queens">Queens</option>
                                     <option value="Brooklyn">Brooklyn</option>
                                     <option value="Bronx">Bronx</option>
-                                    <option value="Saten Island"></option>
+                                    <option value="Saten Island">Staten Island</option>
                                 </select>
                             </div>
 
@@ -213,7 +217,7 @@
                             </div>   
 
                             <p class="kpi-label">Trip Distance</p>
-                            <h3 id="totalTrips">4.8 mi</h3>
+                            <h3 id="averageDistance">4.8 mi</h3>
                             <p class="kpi-context">average distance travelled</p>
                         </article>
 
@@ -225,7 +229,7 @@
                             </div>   
 
                             <p class="kpi-label">Average Fare</p>
-                            <h3 id="totalTrips">$24.60</h3>
+                            <h3 id="averageFare">$24.60</h3>
                             <p class="kpi-context">average passenger cost</p>
                         </article>
 
@@ -237,7 +241,7 @@
                             </div>   
 
                             <p class="kpi-label">Avg. Trip Duration</p>
-                            <h3 id="totalTrips">18.4 min</h3>
+                            <h3 id="averageDuration">18.4 min</h3>
                             <p class="kpi-context">pickup to dropoff</p>
                         </article>
 

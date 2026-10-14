@@ -123,7 +123,7 @@ navigationItems.forEach(function (item) {
 });
 
 
-// INITAL APP STATE
-updateDashbaord(defaultDashboardData);
+// INITAL APP STATE 
+updateDashboard(defaultDashboardData);
 
 console.log("Urban Mobility Data Explorer loaded.");
