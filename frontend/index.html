@@ -31,7 +31,7 @@
                 <div class="topbar-actions">
 
                     <div class="period-selector">
-                        Jan 2023 - Dec 2023
+                        NYC Yellow Taxi Trips
                     </div>
 
                     <button class="menu-button" id="menuButton">☰</button>
@@ -73,80 +73,89 @@
             <div class="dashboard-content">
 
 
-                <!-- PAGE INTRO -->
-                <section class="page-introduction">
-
-                    <section class="dashboard-heading" id="overview">
-                        <p>Explore <strong>PATTERNS</strong> across New York City's taxi network</p>
-
-                    </section>
-
-                    <div class="date-summary">
-
-                        <span class="date-label">Dataset period</span>
-                        <strong>NYC Yellow Taxi Trips</strong>
-                    </div>
-
-                </section>
-
-                <section class="overview-grid">
+                <section class="overview-grid" id="overview">
                     <div class="overview-left">
+                        <section class="page-introduction">
+                            <div class="dashboard-heading">
+                                <p>Explore <strong><u>PATTERNS</u></strong> across<br> New York City's taxi network</p>
+                            </div>
+                        </section>
 
                         <!-- KPI GRID -->
                         <section class="kpi-grid">
 
                                 <article class="kpi-card">
-                                    <div class="kpi-top">
+                                    <div class="kpi-top hidden">
                                         <div class="kpi-icon">↗</div>
-                                        <span class="positive-change">+8.4%</span>
+                                        <span class="positive-change">Selection</span>
                                     </div>   
 
                                     <p class="kpi-label">Total Trips</p>
-                                    <h3 id="totalTrips">124,680</h3>
+                                    <h3 id="totalTrips">—</h3>
                                     <p class="kpi-context">trips in current selection</p>
                                 </article>
 
 
                                 <article class="kpi-card">
-                                    <div class="kpi-top">
+                                    <div class="kpi-top hidden">
                                         <div class="kpi-icon">↔</div>
                                         <span class="neutral-tag">Average</span>
                                     </div>   
 
                                     <p class="kpi-label">Trip Distance</p>
-                                    <h3 id="averageDistance">4.8 mi</h3>
+                                    <h3 id="averageDistance">—</h3>
                                     <p class="kpi-context">average distance travelled</p>
                                 </article>
 
 
                                 <article class="kpi-card">
-                                    <div class="kpi-top">
+                                    <div class="kpi-top hidden">
                                         <div class="kpi-icon">$</div>
-                                        <span class="neutral-tag">+3.1%</span>
+                                        <span class="neutral-tag">Average</span>
                                     </div>   
 
                                     <p class="kpi-label">Average Fare</p>
-                                    <h3 id="averageFare">$24.60</h3>
+                                    <h3 id="averageFare">—</h3>
                                     <p class="kpi-context">average passenger cost</p>
                                 </article>
 
 
                                 <article class="kpi-card">
-                                    <div class="kpi-top">
+                                    <div class="kpi-top hidden">
                                         <div class="kpi-icon">◷</div>
                                         <span class="neutral-tag">Duration</span>
                                     </div>   
 
                                     <p class="kpi-label">Avg. Trip Duration</p>
-                                    <h3 id="averageDuration">18.4 min</h3>
+                                    <h3 id="averageDuration">—</h3>
                                     <p class="kpi-context">pickup to dropoff</p>
                                 </article>
 
 
                         </section>
 
+
+                    </div>
+
+                    <!-- MAP CONTENT-->
+                    <article class="map-card dashboard-card">
+
+                        <div class="card-header hidden">
+
+                            <div>
+                                <h3>NYC Mobility Activity</h3>
+                                <p>Taxi movement across New York City zones</p>
+                            </div>
+
+                            <span class="map-badge">
+                                Taxi Zones
+                            </span>
+                        </div>
+
+                        <div class="map-placeholder">
+                        </div>
                         <!-- FILTERS -->
-                        <section class="filter-panel">
+                        <section class="filter-panel map-filter-panel">
                             <div class="filter-header">
                                 <div>
                                     <h3>Explore the dataset</h3>
@@ -162,14 +171,9 @@
                                     </div>
 
                                     <div class="filter-group">
-                                        <label for="pickupFilter"></label>
+                                        <label for="pickupFilter">Pickup District</label>
                                         <select id="pickupFilter">
                                             <option value="">All Locations</option>
-                                            <option value="Manhattan">Manhattan</option>
-                                            <option value="Queens">Queens</option>
-                                            <option value="Brooklyn">Brooklyn</option>
-                                            <option value="Bronx">Bronx</option>
-                                            <option value="Saten Island">Staten Island</option>
                                         </select>
                                     </div>
 
@@ -197,47 +201,6 @@
                                     
                             </div>
                         </section>
-                    </div>
-
-                    <!-- MAP CONTENT-->
-                    <article class="map-card dashboard-card">
-
-                        <div class="card-header hidden">
-
-                            <div>
-                                <h3>NYC Mobility Activity</h3>
-                                <p>Taxi movement across New York City zones</p>
-                            </div>
-
-                            <span class="map-badge">
-                                Taxi Zones
-                            </span>
-                        </div>
-
-                        <div class="map-placeholder">
-                            <div class="map-overlay-card">
-                                <span class="map-overlay-label">Selected Zone</span>
-
-                                <strong>Midtown Center</strong>
-
-                                <div class="map-overlay-stats">
-                                    <div>
-                                        <span>Trips</span>
-                                        <strong>18,420</strong>
-                                    </div>
-
-                                    <div>
-                                        <span>Avg. fare</span>
-                                        <strong>18,420</strong>
-                                    </div>
-
-                                    <div>
-                                        <span>Avg. distance</span>
-                                        <strong>3.9mi</strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </article>
                 </section>
 
@@ -257,43 +220,7 @@
                             </div>
                         </div>
 
-                        <div class="placeholder-chart line-chart">
-
-                            <div class="chart-y-axis">
-                                <span>30K</span>
-                                <span>20K</span>
-                                <span>10K</span>
-                                <span>0</span>
-                            </div>
-
-                            <div class="chart-area">
-
-                                <div class="grid-line"></div>
-                                <div class="grid-line"></div>
-                                <div class="grid-line"></div>
-                                <div class="grid-line"></div>
-
-                                <div class="mock-line">
-                                        <span class="point point-one"></span>
-                                        <span class="point point-two"></span>
-                                        <span class="point point-three"></span>
-                                        <span class="point point-four"></span>
-                                        <span class="point point-fix"></span>
-                                        <span class="point point-six"></span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="chart-bottom-labels">
-                            <span>Mon</span>
-                            <span>Tue</span>
-                            <span>Wed</span>
-                            <span>Thur</span>
-                            <span>Fri</span>
-                            <span>Sat</span>
-                            <span>Sun</span>
-                        </div>
+                        <div class="trend-chart" id="tripTrendChart"></div>
                     </article>
 
                     <article class="dashboard-card chart-card" id="locations">
@@ -309,21 +236,7 @@
                             </span>
                         </div>
 
-                        <div class="ranking-list">
-                            <div class="ranking-item">
-                                <div class="rank-number">01</div>
-                                <div class="rank-details">
-                                    <div class="rank-title">
-                                        <strong>Midtown Center</strong>
-                                        <span>18,420</span>
-                                    </div>
-
-                                    <div class="progress-track">
-                                        <div class="progress-value" style="width: 92%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="ranking-list" id="rankingList"></div>
 
                     </article>
 
@@ -331,41 +244,27 @@
 
 
                 <!-- SECONDARY VISUALS -->
-                <section class="secondary-grid hidden">
-
-                    <article class="dashboard-card">
-                        <div class="card-header">
+                <section class="secondary-grid">
+                    <details class="insight-card dashboard-card">
+                        <summary>
                             <div>
-                                <h3>Fare vs Distance</h3>
-                                <p>Relationship between distance and cost</p>
+                                <h3>Distance Distribution</h3>
+                                <p>Trip volume grouped by journey distance</p>
                             </div>
-                        </div>
-
-                        <div class="scatter-placeholder">
-                            <span class="scatter-dot" style="left: 13%; bottom: 18%;"></span>
-                        </div>
-                    </article>
-
-                    <article class="dashboard-card">
-                        <div class="card-header">
+                            <span>View insight</span>
+                        </summary>
+                        <div class="borough-list" id="distanceDistribution"></div>
+                    </details>
+                    <details class="insight-card dashboard-card">
+                        <summary>
                             <div>
                                 <h3>Trips by Borough</h3>
                                 <p>Geographic distribution of pickups</p>
                             </div>
-                        </div>
-
-                        <div class="borough-list">
-                            <div class="borough-row">
-                                <span>Manhattan</span>
-                                <div class="borough-bar">
-                                    <div style="width: 84%;"></div>
-                                </div>
-
-                                <strong>54%</strong>
-                            </div>
-                        </div>
-                    </article>
-
+                            <span>View insight</span>
+                        </summary>
+                        <div class="borough-list" id="boroughList"></div>
+                    </details>
                 </section>
 
                 <!-- TRIP TABLE -->
@@ -383,7 +282,7 @@
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr class="trip-row">
+                                <tr>
                                     <th>Pickup</th>
                                     <th>Dropoff</th>
                                     <th>Distance</th>
@@ -394,25 +293,7 @@
                             </thead>
 
                             <tbody id="tripTableBody">
-                                <tr>
-
-                                    <td>Midtown Center</td>
-                                    <td>Upper East Side</td>
-                                    <td>3.7mi</td>
-                                    <td>16 min</td>
-                                    <td>$18.50</td>
-                                    <td><span class="status-pill">Valid</span></td>
-                                </tr>
-
-                                <tr>
-
-                                    <td>JFK Airport</td>
-                                    <td>Times Square</td>
-                                    <td>17.4 mi</td>
-                                    <td>48 min</td>
-                                    <td>$72.40</td>
-                                    <td><span class="status-pill">Valid</span></td>
-                                </tr>
+                                <tr><td colspan="6">Loading trips...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -442,45 +323,13 @@
             <div>
                 <span class="drawer-eyebrow">TRIP DETAILS</span>
 
-                <h3 id="drawerTitle">Midtown Center → Upper East Side</h3>
+                <h3 id="drawerTitle">Trip details</h3>
             </div>
 
             <button class="drawer-close" id="drawerClose">×</button>
         </div>
 
-        <div class="drawer-content">
-            <div class="detail-grid">
-                <div class="details-stat">
-                    <span>Distance</span>
-                    <strong>3.7 mi</strong>
-                </div>
-
-                <div class="details-stat">
-                    <span>Duration</span>
-                    <strong>16 min</strong>
-                </div>
-
-                <div class="details-stat">
-                    <span>Fare</span>
-                    <strong>18.50</strong>
-                </div>
-
-                <div class="detail-stat">
-                    <span>Status</span>
-                    <strong>Valid</strong>
-                </div>
-
-            </div>
-
-            <div class="drawer-section">
-                
-                <h4>Mobility context</h4>
-
-                <p>This trip represents a short-distance
-                Manhattan journey within the selected
-                dataset period.</p>
-            </div>
-        </div>
+        <div class="drawer-content" id="drawerContent"></div>
 
 
     </aside>

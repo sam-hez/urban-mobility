@@ -136,7 +136,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 18px;
     padding: 20px 8px;
 }
@@ -247,11 +247,14 @@ a {
 }
 
 .map-card{
+    position: relative;
+    min-width: 0;
     min-height: 100%;
 }
 
 .map-placeholder {
     min-height: 390px;
+    height: 100%;
     position: relative;
     overflow: hidden;
     border-radius: 14px;
@@ -264,14 +267,11 @@ a {
     border: 1px solid var(--border);
 }
 
-.map-overlay-card{
+.map-filter-panel{
     position: absolute;
-    left: 18px;
-    bottom: 18px;
-    width: min(
-        360px,
-        calc(100% - 36px)
-    );
+    left: 38px;
+    bottom: 38px;
+    width: calc(100% - 76px);
     padding: 16px;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.94);
@@ -320,10 +320,11 @@ a {
     top: 0;
     right: 0;
     width: min(
-        430px
+        430px,
         100%
     );
     height: 100vh;
+    overflow-y: auto;
     background: white;
     z-index: 160;
     transform: translateX(100%);
@@ -558,7 +559,7 @@ a {
     width: 100%;
     max-width: 1500px;
     margin: 0 auto;
-    padding: 26px 30px 40px;
+    padding: 16px 30px 40px;
 }
 
 .dashboard-heading p {
@@ -582,8 +583,8 @@ a {
 .overview-grid{
     display: grid;
     grid-template-columns: 
-        minmax(360px, 0.9fr)
-        minmax(500px, 1.5fr);
+        minmax(300px, 1fr)
+        minmax(620px, 1.7fr);
     gap: 18px;
     align-items: stretch;
     margin-bottom: 18px;
@@ -600,7 +601,7 @@ a {
     justify-content: space-between;
     align-items: flex-end;
     gap: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .eyebrow{
@@ -748,8 +749,6 @@ a {
     background: var(--navy);
 }
 
-.ma
-
 
 .apply-filter-button:hover{
     background: #14233a;
@@ -767,8 +766,8 @@ a {
     background: white;
     border: 1px solid var(--border);
     border-radius: 14px;
-    background: var(--primary-light);
-    color: var(--primary);
+    background: var(--surface);
+    color: var(--text-primary);
     font-size: 14px;
     font-weight: 700;
     position: relative;
@@ -780,12 +779,23 @@ a {
         box-shadow 0.2s ease,
         border-color 0.2s ease;
 }
+.kpi-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
 .kpi-icon{
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
     background-color: var(--primary-soft);
     color: var(--primary-dark);
 }
 .kpi-card h3{
-    columns: var(--text-primary);
+    color: var(--text-primary);
     font-size: 26px;
 }
 
@@ -1021,6 +1031,7 @@ a {
 
 .secondary-grid {
     display: grid;
+    align-items: start;
     grid-template-columns: 1fr 1fr;
     gap: 18px;
     margin-bottom: 18px;
@@ -1052,7 +1063,7 @@ a {
 
 .borough-row{
     display: grid;
-    grid-template-columns: 90px 1fr 34px;
+    grid-template-columns: minmax(75px, 100px) minmax(30px, 1fr) auto;
     gap: 10px;
     align-items: center;
     font-size: 10px;
@@ -1060,7 +1071,7 @@ a {
 .borough-row span{
     color: var(--text-secondary);
 }
-.borough strong{
+.borough-row strong{
     text-align: right;
     font-size: 10px;
 }
@@ -1135,6 +1146,17 @@ tbody tr:hover {
 }
 
 
+/* Keep the filters in one row across the desktop map. */
+.map-filter-panel .filter-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+}
+.map-filter-panel .apply-filter-button {
+    grid-column: auto;
+}
+#overview, #mobility-trends, #locations, #trips {
+    scroll-margin-top: 90px;
+}
+
 /* Tablet Responsiveness */
 @media (max-width: 1100px) {
 
@@ -1171,7 +1193,19 @@ tbody tr:hover {
         grid-template-columns: 1fr;
     }
     .map-placeholder{
+        height: auto;
         min-height: 360px;
+    }
+    .map-filter-panel .filter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .map-filter-panel .apply-filter-button {
+        grid-column: 1 / -1;
+    }
+    .map-filter-panel {
+        position: static;
+        width: 100%;
+        margin-top: 14px;
     }
 }
 
@@ -1269,7 +1303,8 @@ tbody tr:hover {
         width: 100%;
     }
 
-    .filter-grid {
+    .filter-grid,
+    .map-filter-panel .filter-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1347,3 +1382,59 @@ tbody tr:hover {
 
 }
 
+
+.trend-chart {
+    width: 100%;
+    min-height: 250px;
+    padding: 8px 0;
+}
+
+.trend-chart svg {
+    display: block;
+    width: 100%;
+    height: 250px;
+}
+
+.insight-card summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    list-style: none;
+}
+.insight-card summary::-webkit-details-marker {
+    display: none;
+}
+.insight-card summary p {
+    color: var(--text-secondary);
+    font-size: 10px;
+}
+.insight-card summary > span {
+    color: var(--primary-dark);
+    font-size: 10px;
+    white-space: nowrap;
+}
+.insight-card summary > span::after {
+    content: " +";
+}
+.insight-card[open] summary > span::after {
+    content: " −";
+}
+.insight-card[open] .borough-list {
+    margin-top: 20px;
+}
+.trip-row {
+    cursor: pointer;
+}
+.drawer-section {
+    margin-top: 20px;
+}
+.drawer-content p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+.apply-filter-button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}

@@ -187,9 +187,63 @@ All endpoints are GET and return JSON. Errors look like `{"error": "message"}` (
 
 ### 4.4 Frontend
 
-ADD HERE (Samuel): the exact command or steps to open the dashboard, and the URL it uses to reach the API at http://127.0.0.1:5000.
+Flask serves the frontend and API together. From the project root with the Python environment active:
+
+```bash
+python backend/app.py
+```
+
+Open http://127.0.0.1:5000 in your browser. The dashboard uses the API on the same address; check API and database connectivity at http://127.0.0.1:5000/api/health. **No separate frontend dev server is required.**
 
 ## 5. Running the project
+
+### Quick start for graders (sample database)
+
+Use the bundled 1,000-trip sample; the raw trip CSV and full pipeline are only needed for the optional full setup below. Run commands from the project root.
+
+1. Install and start MySQL 8.0.16 or newer. Create the Python environment and install requirements as shown in section 4.0.
+2. In the MySQL client as an administrator, create the database and user using the SQL in section 4.2.
+3. Copy the configuration and set `DB_PASSWORD` in `.env` to the password you chose:
+   ```bash
+   cp .env.example .env
+   ```
+4. Import the schema into the new, empty database:
+   ```bash
+   mysql -u mobility_user -p urban_mobility < database/schema_dump.sql
+   ```
+5. Import the sample data:
+   ```bash
+   mysql -u mobility_user -p urban_mobility < database/sample_data.sql
+   ```
+6. With the Python environment active, start Flask:
+   ```bash
+   python backend/app.py
+   ```
+7. Open http://127.0.0.1:5000. Check http://127.0.0.1:5000/api/health for API/database status.
+
+### Using an existing XAMPP database locally
+
+Start MySQL in XAMPP. For the local `urban_mobility` database, use these settings in your ignored `.env`:
+
+```dotenv
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=urban_mobility
+```
+
+XAMPP includes MariaDB; the Flask connection supports its query timeout setting as well as MySQL's. No Homebrew MySQL installation is needed. If the database is empty, import the bundled schema and sample once:
+
+```bash
+/Applications/XAMPP/xamppfiles/bin/mysql -h 127.0.0.1 -u root urban_mobility < database/schema_dump.sql
+/Applications/XAMPP/xamppfiles/bin/mysql -h 127.0.0.1 -u root urban_mobility < database/sample_data.sql
+python backend/app.py
+```
+
+Open http://127.0.0.1:5000. Restart Flask after changing `.env`.
+
+### Optional full-data setup
 
 On a fresh clone, in this order:
 
@@ -218,9 +272,9 @@ docs/             schema design, decision log and report drafts
 
 ## 7. Documentation
 
-- Technical report (PDF): ADD YOUR REPORT LINK HERE
+- Technical report (PDF): [Urban Mobility Technical Report](Urban_Mobility_Technical_Report.pdf)
 - Data pipeline: `pipeline/README.md`, `pipeline/FIELDS.md`, `pipeline/CLEANING_RULES.md`, `pipeline/FEATURES.md`
 - Cleaning evidence: `logs/cleaning_report.txt`, `logs/exclusion_summary.csv`, `logs/excluded_records.csv`
 - Database: `database/schema.sql`, `database/indexes.sql`, `database/schema_dump.sql`, `docs/schema_design.md`, `docs/decision_log.md`
 - Verification: `verification/README.md`, `logs/database_verification.txt`
-- Video walkthrough: ADD YOUR VIDEO LINK HERE
+- Video walkthrough: https://drive.google.com/drive/folders/1dzm_Kt-q5SeBAS5cxXOiqn3UQkaUXOdK?usp=sharing

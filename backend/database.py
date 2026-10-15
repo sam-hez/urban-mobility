@@ -2,7 +2,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from urllib.parse import quote_plus
 
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, event, text
 
 import config
 
@@ -19,8 +19,15 @@ def get_engine():
         _engine = create_engine(
             url,
             pool_pre_ping=True,   
-            connect_args={"init_command": f"SET SESSION max_execution_time={config.QUERY_TIMEOUT_MS}"},
         )
+        @event.listens_for(_engine, "connect")
+        def set_query_timeout(connection, _):
+            if "MariaDB" in connection.get_server_info():
+                setting = f"max_statement_time={config.QUERY_TIMEOUT_MS / 1000}"
+            else:
+                setting = f"max_execution_time={config.QUERY_TIMEOUT_MS}"
+            with connection.cursor() as cursor:
+                cursor.execute(f"SET SESSION {setting}")
     return _engine
 
 def _clean(value):
